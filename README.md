@@ -5,4 +5,5 @@
 - React
 - The Movie Database API
 - Firebase
+- Cloud Firestore
 - CSS

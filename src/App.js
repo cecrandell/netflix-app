@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import HomeScreen from "./screens/HomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginScreen from "./screens/LoginScreen";
 import { auth } from "./firebase";
-import { useDispatch } from "react-redux";
-import { login, logout } from "./features/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { login, logout, selectUser } from "./features/userSlice";
 
 function App() {
-  const user = null;
+  const user = useSelector(selectUser);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -21,12 +22,11 @@ function App() {
           })
         );
       } else {
-        // Logged out
-        dispatch(logout);
+        dispatch(logout());
       }
     });
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
   return (
     <div className="app">
       <Router>
@@ -34,8 +34,8 @@ function App() {
           <LoginScreen />
         ) : (
           <Routes>
+            <Route exact path="/profile" element={<ProfileScreen />} />
             <Route exact path="/" element={<HomeScreen />} />
-            {/* <Route exact path="" element={} /> */}
           </Routes>
         )}
       </Router>
