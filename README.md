@@ -3,7 +3,9 @@
 ### Technologies Used
 
 - React
-- The Movie Database API
-- Firebase
+- Redux
+- Firebase Database
 - Cloud Firestore
+- Stripe Webhooks
 - CSS
+- The Movie Database API
