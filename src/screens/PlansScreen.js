@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../features/userSlice";
 import db from "../firebase";
 import "./PlansScreen.css";
+import { loadStripe } from "@stripe/stripe-js";
 
 function PlansScreen() {
   const [products, setProducts] = useState([]);
@@ -43,6 +44,13 @@ function PlansScreen() {
       const { error, sessionId } = snap.data();
       if (error) {
         alert(`An error occurred: ${error.message}`);
+      }
+
+      if (sessionId) {
+        const stripe = await loadStripe(
+          "pk_test_51MPoU9KuqUcT1bxO0cHdlRX2UEwxj2IAhOiGysgPWLTrnlcSd0ZqIg6tRcLIEDCvbXydFDIkTgFGEaU1VWhinUX400IVVbATvt"
+        );
+        stripe.redirectToCheckout({ sessionId });
       }
     });
   };
